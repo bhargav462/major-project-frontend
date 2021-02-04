@@ -1,0 +1,36 @@
+.Quote{
+    background-image: url('../../../assets/images/carousal2.jpg');
+    background-repeat: no-repeat;
+    height: 400px;
+}
+
+.QuoteText{
+    color: #fff;
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.imageStyles{
+    width: 100%;
+}
+
+.CardLayout{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 3%;
+    color:#5e9106
+}
+
+
+@media (max-width: 768px){
+
+   .QuoteText{
+       font-size: 20px;
+   }
+}

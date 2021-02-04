@@ -1,0 +1,79 @@
+  .register-container{
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+  }
+
+  .warning{
+     color: red;
+     margin-top: -5px;
+     margin-bottom: 5px;
+  }
+
+  .form{
+    background-color: #ccffcc;
+    padding: 16px;
+    border: 1px solid white;
+    border-radius: 25px;
+    box-shadow: 0px 8px 15px #c8dda7;
+  }
+
+  .formInput{
+  width: 90%;
+  padding: 10px;
+  font-size: 18px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background:#ccffcc;
+  border: 2px solid #ccffcc;
+  border-radius: 20px 10px 20px 10px;
+  box-shadow: inset 3px 3px 7px #95a37e, inset -3px -3px 7px #c8dda7;
+}
+
+.formInput:focus {
+  /* background-color: #ddd; */
+  outline: none;
+}
+
+.hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  border: 0px solid white;
+  border-radius: 20px 10px 20px 10px;
+  box-shadow: 0px 8px 15px #c8dda7;
+  font-size: 20px;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+
+.signin {
+  background-color: #ccffcc;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px)
+{
+  .container{
+    margin-top: 15%;
+  }
+}
