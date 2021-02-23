@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import FormSignup from './FormSignUp';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
