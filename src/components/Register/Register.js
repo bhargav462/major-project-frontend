@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormSignup from './FormSignUp';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
 
 const Register = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
   let history = useHistory();
 
   function submitForm() {
     history.push('/');
-    setIsSubmitted(true);
   }
 
   const responseSuccessGoogle = (response) => {

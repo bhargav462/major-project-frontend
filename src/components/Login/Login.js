@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormSignIn from './FormSignIn';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
 
 const Register = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
   let history = useHistory();
 
   function submitForm() {
