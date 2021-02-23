@@ -1,5 +1,6 @@
 export default function validateInfo(values){
     let errors = {};
+    console.log(values.phoneNo.length)
 
     if(!values.username.trim()){
         errors.username = "Username required"
@@ -9,6 +10,12 @@ export default function validateInfo(values){
         errors.email = "Email Required"
     }else if (!/\S+@\S+\.\S+/.test(values.email)) {
         errors.email = 'Email address is invalid';
+    }
+
+    if(!values.phoneNo){
+        errors.phoneNo = "Phone Number Required"
+    }else if(!(values.phoneNo.length === 10)){
+        errors.phoneNo = "Enter a valid phone Number"
     }
 
     if(!values.password){

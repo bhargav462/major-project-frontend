@@ -51,11 +51,11 @@
 .NavLinks li a{
     color: #5e9106;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1000px){
 
     .WebsiteName{
         font-size: 20px;
@@ -95,8 +95,8 @@
     }
 
     .NavLinksOpen{
-        clip-path: circle(1000px at 90% -20%);
-        -webkit-clip-path: circle(1000px at 90% -20%);
+        clip-path: circle(1200px at 90% -20%);
+        -webkit-clip-path: circle(1200px at 90% -20%);
     }
 
     .NavLinks li{
