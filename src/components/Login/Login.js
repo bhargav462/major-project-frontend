@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import FormSignIn from './FormSignIn';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
+import {useHistory} from 'react-router-dom'
 
 const Register = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  let history = useHistory();
 
   function submitForm() {
-    setIsSubmitted(true);
+    history.push('/');
   }
 
   const responseSuccessGoogle = (response) => {
     console.log("response",response)
     const {profileObj} = response;
-    fetch(`${process.env.REACT_APP_API_URL}/google/register`,{
+    fetch(`${process.env.REACT_APP_API_URL}/google/login`,{
       method: 'POST',
       headers : {
         'Content-Type' : 'Application/json'
@@ -28,7 +30,7 @@ const Register = () => {
     .then(data => {
       console.log("data",data);
       Cookies.set('token', data, { expires: 1 })
-      window.location.href = '/'
+      history.push('/');
     })
   }
 

@@ -7,6 +7,7 @@ import Register from './components/Register/Register'
 import Login from './components/Login/Login'
 import News from './components/News/news';
 import Products from './components/products/products'
+import history from './../src/utilities/history/history'
 
 class Error extends React.Component {
   render() {
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
          <Toolbar />
          <Switch>
            <Route path="/" exact component={Home} />

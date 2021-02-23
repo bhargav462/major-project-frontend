@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react';
+import Cookies from 'js-cookie'
 
 const useForm = (callback,validate) => {
     const [values,setValues] = useState({
@@ -28,7 +29,33 @@ const useForm = (callback,validate) => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting){
-            callback();
+            fetch(`${process.env.REACT_APP_API_URL}/auth/login`,{
+                method: 'POST',
+                headers : {
+                  'Content-Type' : 'Application/json'
+                },
+                body : JSON.stringify({
+                  email : values.email,
+                  password : values.password
+                })
+              }).then(res => {
+                console.log("res",res);
+                if(res.status === 400){
+                   return {error:{
+                       password: 'Invalid credentials'
+                   }}
+                }
+                return res.json();
+              })
+              .then(data => {
+                if(data.error && data.error.password){
+                    setError({password: data.error.password})
+                }else{
+                    console.log("data",data);
+                    Cookies.set('token', data, { expires: 1 })
+                    callback();
+                }
+              })
         }
     },[errors])
 
