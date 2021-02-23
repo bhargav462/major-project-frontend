@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import FormSignIn from './FormSignIn';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
@@ -41,7 +41,7 @@ const Register = () => {
 
   return (
     <>
-            {!isSubmitted ? (
+            {
                 <>
                   <div style={{textAlign:'center',marginTop:'15px'}}>
                     <GoogleLogin
@@ -54,9 +54,7 @@ const Register = () => {
                   </div>
                   <FormSignIn submitForm={submitForm} />
                 </>
-            ) : (
-                <p>Success</p>
-            )}
+            }
     </>
   );
 };
