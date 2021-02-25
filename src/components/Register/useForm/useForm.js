@@ -32,6 +32,7 @@ const useForm = (callback,validate) => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting){
+          console.log('env',process.env)
             fetch(`${process.env.REACT_APP_API_URL}/auth/register`,{
                 method: 'POST',
                 headers : {
