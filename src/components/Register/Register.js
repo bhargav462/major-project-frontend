@@ -44,7 +44,7 @@ const Register = () => {
               <>
                 <div style={{textAlign:'center',marginTop:'15px'}}>
                 <GoogleLogin
-                  clientId="725593860770-5i1rc3vdk70o39ljj9sa40klnpkbfsto.apps.googleusercontent.com"
+                  clientId={process.env.REACT_APP_GOOGLE_OAUTH}
                   buttonText="Register with google"
                   onSuccess={responseSuccessGoogle}
                   onFailure={responseErrorGoogle}
