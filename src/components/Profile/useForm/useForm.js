@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from 'react';
+import {useState,useEffect} from 'react';
 import Cookies from 'js-cookie'
-import {AuthContext} from './../../../App';
 
 const useForm = (callback,validate) => {
     const [values,setValues] = useState({
@@ -11,7 +10,7 @@ const useForm = (callback,validate) => {
         password2: ''
     })
 
-    const {dispatch} = React.useContext(AuthContext)
+
     
     const [errors,setError] = useState({});
     const [isSubmitting,setIsSubmitting] = useState(false);
@@ -68,16 +67,6 @@ const useForm = (callback,validate) => {
                 if(data !== 'error'){
                   console.log("data",data);
                   Cookies.set('token', data, { expires: 1 })
-                  dispatch({
-                    type: "LOGIN",
-                    payload: {
-                      isAuthenticated: true,
-                      user: {
-                        name: values.username,
-                        email: values.email
-                      }
-                    }
-                  })
                   callback();
                 }
               })

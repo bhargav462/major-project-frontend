@@ -1,13 +1,48 @@
-// import './App.css';
 import React from 'react'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import Toolbar from './components/Navigation/Toolbar/Toolbar'
 import Home from './components/Home/Home'
 import Register from './components/Register/Register'
 import Login from './components/Login/Login'
 import News from './components/News/news';
 import Products from './components/products/products'
+import Profile from './components/Profile/Profile'
 import history from './../src/utilities/history/history'
+import Cookies from 'js-cookie'
+
+export const AuthContext = React.createContext();
+
+const initialState = {
+  isAuthenticated: false,
+  user: null
+}
+
+const reducer = (state,action) => {
+  console.log("localStorage",Cookies.get("token"))
+  console.log("storage",state)
+  switch(action.type){
+    case "LOGIN":
+       localStorage.setItem("user",JSON.stringify(action.payload.user))
+       return {
+         ...state,
+         isAuthenticated: true,
+         user: action.payload.user
+       };
+    case "LOGOUT":
+      localStorage.clear();
+      return{
+        ...state,
+        isAuthenticated: false,
+        user: null
+      }
+    default:
+      return{
+        ...state,
+        isAuthenticated: Cookies.get('token') === undefined ? false : true,
+        user: localStorage.getItem('user')
+      };
+  }
+}
 
 class Error extends React.Component {
   render() {
@@ -16,21 +51,33 @@ class Error extends React.Component {
 }
 
 function App() {
+  const [state,dispatch] = React.useReducer(reducer,initialState);
 
   return (
-    <div className="App">
-      <Router history={history}>
-         <Toolbar />
-         <Switch>
-           <Route path="/" exact component={Home} />
-           <Route path="/register" exact component={Register} />
-           <Route path="/login" exact component={Login} />
-           <Route path="/news" exact component={News} />
-           <Route path="/products" exact component={Products} />
-           <Route path="/error" exact component={Error} />
-         </Switch>
-      </Router>
-    </div>
+    <AuthContext.Provider value={{state,dispatch}}>
+      <div className="App">
+        <Router history={history}>
+          <Toolbar />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/news" exact component={News} />
+            <Route path="/products" exact component={Products} />
+            <Route path="/error" exact component={Error} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/logout" render={() => {
+                localStorage.clear();
+                Cookies.remove("token");
+                dispatch({});
+                console.log("loggeg out")
+                return <Redirect to={{pathname: "/"}} />
+            }} />
+            <Route render={() => <Redirect to={{pathname: "/"}} />} />
+          </Switch>
+        </Router>
+      </div>
+    </AuthContext.Provider>
   );
 }
 

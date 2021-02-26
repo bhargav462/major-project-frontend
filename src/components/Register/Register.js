@@ -3,12 +3,13 @@ import FormSignup from './FormSignUp';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
+import {AuthContext} from './../../App'
 
 const Register = () => {
   let history = useHistory();
-
+  const {dispatch} = React.useContext(AuthContext);
   function submitForm() {
-    history.push('/');
+    history.push('/profile');
   }
 
   const responseSuccessGoogle = (response) => {
@@ -29,7 +30,17 @@ const Register = () => {
     .then(data => {
       console.log("data",data);
       Cookies.set('token', data, { expires: 1 })
-      history.push('/')
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          isAuthenticated: true,
+          user: {
+            name: profileObj.name,
+            email: profileObj.email
+          }
+        }
+      })
+      history.push('/profile')
     })
   }
 
@@ -39,7 +50,6 @@ const Register = () => {
 
   return (
     <>      
-             {}
             {
               <>
                 <div style={{textAlign:'center',marginTop:'15px'}}>
