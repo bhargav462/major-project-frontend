@@ -9,6 +9,7 @@ import Products from './components/products/products'
 import Profile from './components/Profile/Profile'
 import history from './../src/utilities/history/history'
 import Cookies from 'js-cookie'
+import ProductDetails from './components/products/productsDetails/ProductDetails'
 
 export const AuthContext = React.createContext();
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="/products" exact component={Products} />
             <Route path="/error" exact component={Error} />
             <Route path="/profile" exact component={Profile} />
+            <Route path="/land/:id" exact component={ProductDetails} />
             <Route path="/logout" render={() => {
                 localStorage.clear();
                 Cookies.remove("token");
