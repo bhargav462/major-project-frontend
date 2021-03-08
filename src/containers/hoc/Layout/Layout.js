@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Aux from '../Auxiliary/Auxiliary';
-import './Layout.css';
+import classes from './Layout.module.css';
 
 class Layout extends Component{
 
@@ -8,8 +8,8 @@ class Layout extends Component{
         return (
              <Aux>
                 <div>
-                    <div className="Quote" >
-                         <p className="QuoteText">Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals & happiness</p>
+                    <div className={classes["Quote"]} >
+                         <p className={classes["QuoteText"]}>Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals & happiness</p>
                     </div>
                 </div>
              </Aux>

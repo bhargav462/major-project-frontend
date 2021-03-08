@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Cookies from 'js-cookie'
 import {AuthContext} from './../../../App';
+import swal from 'sweetalert'
 
 const useForm = (callback,validate) => {
     const [values,setValues] = useState({
@@ -48,24 +49,11 @@ const useForm = (callback,validate) => {
               }).then(async (res) => {
                 if(res.ok){
                   return res.json();
+                }else{
+                   throw res.json();
                 }
-                console.log("res",res);
-                if(res.status === 403){
-                   await res.json().then(data => {
-                     if(data.error === "email"){
-                        setError({email: "Email already in use"})   
-                        return 'error'                    
-                     }else if(data.error === "phoneNo"){
-                       setError({phoneNo: "Phone Number already in use"})
-                       return 'error'
-                     }
-                     console.log("resData",data);
-                   })
-                }
-                return 'error'
               })
               .then(data => {
-                if(data !== 'error'){
                   console.log("data",data);
                   Cookies.set('token', data, { expires: 1 })
                   dispatch({
@@ -74,12 +62,24 @@ const useForm = (callback,validate) => {
                       isAuthenticated: true,
                       user: {
                         name: values.username,
-                        email: values.email
+                        email: values.email,
+                        phoneNo: values.phoneNo
                       }
                     }
                   })
                   callback();
-                }
+              }).catch(e => {
+                console.log("error",e);
+                e.then(data => {
+                  if(data.error === "email"){
+                     setError({email: "Email already in use"})   
+                  }else if(data.error === "phoneNo"){
+                    setError({phoneNo: "Phone Number already in use"})
+                  }else{
+                    swal("Internal server error");
+                  }
+                  console.log("resData",data);
+                })
               })
         }
     },[errors])

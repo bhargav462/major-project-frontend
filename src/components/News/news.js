@@ -15,7 +15,7 @@ async function searchNews(q) {
   return body.value;
 }
 function App() {
-  const [query, setQuery] = React.useState("docker");
+  const [query, setQuery] = React.useState("agro");
   const [list, setList] = React.useState(null);
   const search = (e) => {
     e.preventDefault();
@@ -23,13 +23,14 @@ function App() {
   };
   return (
     <div className={classes["app"]}>
-      <form onSubmit={search}>
+      <form className={classes["form"]} onSubmit={search}>
         <input
           autoFocus
           value={query}
           onChange={e => setQuery(e.target.value)}
+          className={classes["input"]}
         />
-        <button>Search</button>
+        <button className={classes["button"]}>Search</button>
       </form>
       {!list
         ? null

@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
 import {AuthContext} from './../../App'
+import classes from './Login.module.css';
 
 const Login = () => {
   const {state,dispatch} = React.useContext(AuthContext);
@@ -56,7 +57,7 @@ const Login = () => {
     <>
             {
                 <>
-                  <div style={{textAlign:'center',marginTop:'15px'}}>
+                  <div className={classes["GoogleLogin"]} >
                     <GoogleLogin
                       clientId={process.env.REACT_APP_GOOGLE_OAUTH}
                       buttonText="Login with google"

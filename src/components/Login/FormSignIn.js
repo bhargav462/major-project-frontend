@@ -1,16 +1,16 @@
 import React from 'react';
 import useForm from './useForm/useForm'
 import validate from './useForm/validateInfo'
-import './Login.css';
+import classes from './Login.module.css';
 import {Link} from 'react-router-dom';
 
 const SignIn = ({submitForm}) => {
         const {handleChange,values,handleSubmit,errors} = useForm(submitForm,validate);
         return (
-            <div className="login-container" >
-                <form onSubmit={handleSubmit} className="form">
+            <div className={classes["login-container"]} >
+                <form onSubmit={handleSubmit} className={classes["form"]}>
                     <h1 style={{textAlign:"center"}}>LOGIN</h1>
-                    <hr className="hr" />
+                    <hr className={classes["hr"]} />
                     <div>
                         <label htmlFor="email" >
                              <b style={{fontSize:'25px'}}>Email</b>
@@ -19,12 +19,12 @@ const SignIn = ({submitForm}) => {
                             id="email"
                             type="email"
                             name="email"
-                            className="formInput"
+                            className={classes["formInput"]}
                             placeholder="Enter your email"
                             value={values.email}
                             onChange={handleChange}
                         />
-                        {errors.email && <p className="warning">{errors.email}</p>}
+                        {errors.email && <p className={classes["warning"]}>{errors.email}</p>}
                     </div>
                     <div>
                         <label htmlFor="password" >
@@ -34,14 +34,14 @@ const SignIn = ({submitForm}) => {
                             id="password"
                             type="password"
                             name="password"
-                            className="formInput"
+                            className={classes["formInput"]}
                             placeholder="Enter your password"
                             value={values.password}
                             onChange={handleChange}
                         />
-                        {errors.password && <p className="warning">{errors.password}</p>}
+                        {errors.password && <p className={classes["warning"]}>{errors.password}</p>}
                     </div>
-                    <button type="submit" className="registerbtn">
+                    <button type="submit" className={classes["registerbtn"]}>
                         Sign In
                     </button>
                     <span type="submit" >

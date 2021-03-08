@@ -1,17 +1,19 @@
-import {useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import Cookies from 'js-cookie'
+import {AuthContext} from './../../../App'
+import getUserData from './../../../utilities/userData/userData'
 
 const useForm = (callback,validate) => {
     const [values,setValues] = useState({
         username: '',
         email: '',
         phoneNo: '',
-        password: '',
-        password2: ''
+        houseNo: '',
+        landmark: '',
+        district: '',
+        state: ''
     })
-
-
-    
+    const {state,dispatch} = React.useContext(AuthContext)
     const [errors,setError] = useState({});
     const [isSubmitting,setIsSubmitting] = useState(false);
 
@@ -22,6 +24,23 @@ const useForm = (callback,validate) => {
             [name] : value
         })
     }
+
+    useEffect(() => {
+      let user = getUserData();
+      console.log("user",user);
+      user = JSON.parse(user);
+      if(values.email === ''){
+        setValues({
+          username: user.name,
+          email: user.email,
+          phoneNo: user.phoneNo,
+          houseNo: user.houseNo,
+          landmark: user.landmark,
+          district: user.district,
+          state: user.state
+        })
+      }
+    },[])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -70,6 +89,7 @@ const useForm = (callback,validate) => {
                   callback();
                 }
               })
+              
         }
     },[errors])
 

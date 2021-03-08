@@ -20,7 +20,7 @@ const Profile = ({submitForm}) => {
                             name="username"
                             className={classes["formInput"]}
                             placeholder="Enter your username"
-                            value={"Bhargav"}
+                            value={values.username}
                             onChange={handleChange}
                             disabled
                         />
@@ -36,7 +36,7 @@ const Profile = ({submitForm}) => {
                             name="email"
                             className={classes["formInput"]}
                             placeholder="Enter your email"
-                            value={"bhargavnakkina462@gmail.com"}
+                            value={values.email}
                             onChange={handleChange}
                             disabled
                         />
@@ -67,10 +67,10 @@ const Profile = ({submitForm}) => {
                             name="HouseNo"
                             className={classes["formInput"]}
                             placeholder="Enter your House No"
-                            value={values.password}
+                            value={values.houseNo}
                             onChange={handleChange}
                         />
-                        {errors.password && <p className={classes["warning"]}>{errors.password}</p>}
+                        {errors.houseNo && <p className={classes["warning"]}>{errors.password}</p>}
                     </div>
                     <div >
                         <label htmlFor="landmark" >
@@ -82,10 +82,10 @@ const Profile = ({submitForm}) => {
                             name="landmark"
                             className={classes["formInput"]}
                             placeholder="Enter your landmark"
-                            value={values.password2}
+                            value={values.landmark}
                             onChange={handleChange}
                         />
-                        {errors.password2 && <p className={classes["warning"]}>{errors.password2}</p>}
+                        {errors.landmark && <p className={classes["warning"]}>{errors.password2}</p>}
                     </div>
                     <div >
                         <label htmlFor="district" >
@@ -97,10 +97,10 @@ const Profile = ({submitForm}) => {
                             name="district"
                             className={classes["formInput"]}
                             placeholder="Enter your District"
-                            value={values.password2}
+                            value={values.district}
                             onChange={handleChange}
                         />
-                        {errors.password2 && <p className={classes["warning"]}>{errors.password2}</p>}
+                        {errors.district && <p className={classes["warning"]}>{errors.password2}</p>}
                     </div>
                     <div >
                         <label htmlFor="State" >
@@ -112,10 +112,10 @@ const Profile = ({submitForm}) => {
                             name="State"
                             className={classes["formInput"]}
                             placeholder="Enter your State"
-                            value={values.password2}
+                            value={values.state}
                             onChange={handleChange}
                         />
-                        {errors.password2 && <p className={classes["warning"]}>{errors.password2}</p>}
+                        {errors.state && <p className={classes["warning"]}>{errors.password2}</p>}
                     </div>
                     <div></div>
                     <button type="submit" className={classes["registerbtn"]} style={{textAlign:"center",alignItems:'center',justifyContent:'center',marginLeft:'auto',marginRight:'auto'}}>

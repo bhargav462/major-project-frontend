@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Cookies from 'js-cookie'
 import {AuthContext} from './../../../App'
+import swal from 'sweetalert';
 
 const useForm = (callback,validate) => {
     const [values,setValues] = useState({
@@ -41,31 +42,37 @@ const useForm = (callback,validate) => {
                 })
               }).then(res => {
                 console.log("res",res);
-                if(res.status === 400){
-                   return {error:{
-                       password: 'Invalid credentials'
-                   }}
+                if(res.ok){
+                  return res.json();
+                }else if(res.status === 400){
+                  throw  {error:{
+                        password: 'Invalid credentials'
+                  }}
+                }else{
+                  throw "";
                 }
-                return res.json();
+                
               })
               .then(data => {
-                if(data.error && data.error.password){
-                    setError({password: data.error.password})
-                }else{
-                    console.log("data",data);
+                console.log("data entry",data);
                     Cookies.set('token', data, { expires: 1 })
                     dispatch({
                         type: "LOGIN",
                         payload: {
                           isAuthenticated: true,
                           user: {
-                            name: data.username,
-                            email: data.email
+                            email: values.email
                           }
                         }
                       })
                     callback();
+              }).catch(e => {
+                if(e.error){
+                  setError({password: e.error.password})
+                }else{
+                  swal("Unexpected Error");
                 }
+                console.log("login error",e);
               })
         }
     },[errors])

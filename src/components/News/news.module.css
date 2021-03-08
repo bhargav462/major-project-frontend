@@ -1,13 +1,3 @@
-body {
-    background: #f7f7f7;
-    
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  
   .app {
    
     display:block;
@@ -15,13 +5,14 @@ body {
     
   }
   
-  form {
-    display:block;
+  .form {
+    display:flex;
     grid-template-columns:  auto;
-  
+    margin-top: 3%;
+    margin-bottom: 2%;
   }
   
-  button {
+  .button {
     background: #17f;
     color: #fff;
     font: inherit;
@@ -30,24 +21,25 @@ body {
     outline: none;
     padding: 0.5em 1.5em;
     margin-right: 50%;
+    float: right;
   }
   
-  button:active {
+  .button:active {
     background-color: #05b;
   }
   
-  input {
+  .input {
     border: 1px solid #999;
     border-radius: 3px;
     font: inherit;
     padding: 0.5em;
     outline: none;
     margin-left: 20%;
-    margin-right: 50%;
-    margin-top: 02%;
+    margin-right: 10%;
+    /* margin-top: 02%; */
   }
   
-  input:focus {
+  .input:focus {
     outline: auto #17f;
   }
   

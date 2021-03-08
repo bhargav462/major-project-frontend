@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import classes from './ProductDetails.module.css';
-import land3 from './../../../assets/images/land1.jpeg'
+import land3 from './../../../assets/images/land5.jpg'
 import land4 from './../../../assets/images/land4.jpg'
-import land5 from './../../../assets/images/land5.jpg'
+import land5 from './../../../assets/images/land1.jpeg'
 import land6 from './../../../assets/images/land6.jpg'
 // import land5 from './../../../assets/images/land7.jpg'
 // import land6 from './../../../assets/images/land8.jpg'
