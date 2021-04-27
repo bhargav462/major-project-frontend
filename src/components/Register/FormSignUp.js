@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import useForm from './useForm/useForm'
-import validate from './useForm/validateInfo'
+import useForm from '../farmers/addCrop/useForm/useForm'
+import validate from '../farmers/addCrop/useForm/validateInfo'
 import {Link} from 'react-router-dom';
 import classes from './register.module.css';
 

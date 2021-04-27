@@ -7,9 +7,10 @@ import Login from './components/Login/Login'
 import News from './components/News/news';
 import Products from './components/products/products'
 import Profile from './components/Profile/Profile'
-import history from './../src/utilities/history/history'
+import history from './utilities/history/history'
 import Cookies from 'js-cookie'
 import ProductDetails from './components/products/productsDetails/ProductDetails'
+import addCrop from './components/farmers/addCrop/addCrop'
 
 export const AuthContext = React.createContext();
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="/news" exact component={News} />
             <Route path="/products" exact component={Products} />
             <Route path="/error" exact component={Error} />
+            <Route path="/farmer/addCrop" exact component={addCrop} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/land/:id" exact component={ProductDetails} />
             <Route path="/logout" render={() => {
