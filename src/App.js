@@ -11,6 +11,7 @@ import history from './utilities/history/history'
 import Cookies from 'js-cookie'
 import ProductDetails from './components/products/productsDetails/ProductDetails'
 import addCrop from './components/farmers/addCrop/addCrop'
+import updateCrop from './components/farmers/updateCrop/updateCrop'
 
 export const AuthContext = React.createContext();
 
@@ -68,6 +69,8 @@ function App() {
             <Route path="/products" exact component={Products} />
             <Route path="/error" exact component={Error} />
             <Route path="/farmer/addCrop" exact component={addCrop} />
+            <Route path="/farmer/updateCrop" exact component={updateCrop} />
+            <Route path="/farmer/deleteCrop" exact component={updateCrop} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/land/:id" exact component={ProductDetails} />
             <Route path="/logout" render={() => {

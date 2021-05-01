@@ -1,9 +1,10 @@
-import React from 'react';
+import React , {useState} from 'react';
 import FormSignup from './FormSignUp';
 import GoogleLogin from 'react-google-login';
 import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
 import {AuthContext} from './../../App'
+import classes from './register.module.css'
 
 const Register = () => {
   let history = useHistory();
@@ -11,6 +12,8 @@ const Register = () => {
   function submitForm() {
     history.push('/profile');
   }
+
+  const [userType,setUserType] = useState("select")
 
   const responseSuccessGoogle = (response) => {
     console.log("response",response)
@@ -48,10 +51,30 @@ const Register = () => {
      console.log("Error",error)
   }
 
+  const userTypeHandler = (e) => {
+    console.log("e",e);
+    console.log("e",e.target.value)
+    setUserType(e.target.value)
+  }
+
   return (
     <>      
-            {
+            { userType === "select" ? 
+                <div className={classes["userType-container"]}>
+                  <select className={classes["userType"]} onChange={userTypeHandler}>
+                    <option value="select">Select</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="buyer">Buyer</option>
+                  </select>
+                </div> :
               <>
+                <div className={classes["userType-container"]}>
+                  <select className={classes["userType"]} onChange={userTypeHandler}>
+                    <option value="select">Select</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="buyer">Buyer</option>
+                  </select>
+                </div>
                 <div style={{textAlign:'center',marginTop:'15px'}}>
                 <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_OAUTH}

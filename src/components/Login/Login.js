@@ -10,6 +10,10 @@ const Login = () => {
   const {state,dispatch} = React.useContext(AuthContext);
   let history = useHistory();
 
+  if(state.isAuthenticated){
+    history.push('/')
+  }
+
   function submitForm() {
     history.push('/profile')
   }
@@ -34,7 +38,7 @@ const Login = () => {
       dispatch({
         type: "LOGIN",
         payload: {
-          isAuthenticated: true,
+          isAuthenticated: true,  
           user: {
             name: profileObj.name,
             email: profileObj.email

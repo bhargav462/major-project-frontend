@@ -13,68 +13,92 @@ function Toolbar(props){
    let [navLinksClass,setNavlinksClass] = useState(classes["NavLinks"]);
    let [linkClass,setLinkClass] = useState("");
 
-   const hamburgerHandler = () => {
-     console.log("hamburger click")
+   const hamburgerHandler = (e) => {
+     console.log("hamburger click",e)
      setHamburger(!hamburger)
-
    }
 
    useEffect(() => {
      console.log("using effect",dispatch({}),state)
-     if(hamburger){
-      setNavlinksClass(classes["NavLinks"]);
-      setLinkClass("");
-     }else{
-      setNavlinksClass([classes["NavLinks"],classes["NavLinksOpen"]].join(' '))
-      setLinkClass(classes["Fade"]);
-     }
    }, [hamburger])
 
         return(
             <Aux>
               {console.log("toolbar state",state)}
               {console.log("props",props)}
-                <nav className={classes["NavBar"]}>
-                    <Link to="/" style={{height:"100%"}}>
-                        <img src={Logo} className={classes["Logo"]}></img>
-                    </Link>
-                    <p className={classes["WebsiteName"]}>Website Name</p>
-                    <div className={classes["Hamburger"]} onClick={hamburgerHandler}>
-                        <div className={classes["Line"]}></div>
-                        <div className={classes["Line"]}></div>
-                        <div className={classes["Line"]}></div>
+              <div className={classes["header"]}>
+                    <div className={classes["container"]}>
+                        <input type="checkbox" name="" className={classes["check"]} />
+                        
+                        <div className={classes["logo-container"]}>
+                            {/* <img src={Logo} className={classes["logoImage"]}></img> */}
+                            <h3 className={classes["logo"]}>Website<span className={classes["span"]}>Name</span></h3>
+                        </div>
+
+                        <div className={classes["nav-btn"]}>
+                            <div className={classes["nav-links"]}>
+                                <ul className={classes["ul"]} onClick={hamburgerHandler}>
+                                    <li className={classes["nav-link"]}>
+                                        <a href="/" className={classes['a']}>Home</a>
+                                    </li>
+                                    <li className={classes["nav-link"]} >
+                                        <a className={classes["a"]} href="#">Farmer<i className="fas fa-caret-down"></i></a>
+                                        <div className={classes["dropdown"]}>
+                                            <ul className={classes["ul"]}>
+                                                <li className={classes["dropdown-link"]}>
+                                                    <a className={classes["a"]} href="/farmer/addCrop">ADD Crop</a>
+                                                </li>
+                                                <li className={classes["dropdown-link"]}>
+                                                    <a className={classes["a"]} href="/farmer/updateCrop">Update Crop</a>
+                                                </li>
+                                                <li className={classes["dropdown-link"]}>
+                                                    <a className={classes["a"]} href="/farmer/deleteCrop">Delete Crop</a>
+                                                </li>
+                                                <div className={classes["arrow"]}></div>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li className={classes["nav-link"]} >
+                                        <a className={classes["a"]} href="/products">Products</a>
+                                    </li>
+                                    <li className={classes["nav-link"]} >
+                                        <a className={classes["a"]} href="/news">News</a>
+                                    </li>
+                                    <li className={classes["nav-link"]} >
+                                        <a className={classes["a"]} href="#">About Us</a>
+                                    </li>
+                                    <li className={classes["nav-link"]} >
+                                        <a className={classes["a"]} href="/contact">Contact Us</a>
+                                    </li>
+                                    {!(state.isAuthenticated) ? (<>
+                                      <li className={classes["nav-link"]} >
+                                      <a className={classes["a"]} href="/register">Register</a>
+                                      </li>
+                                      <li className={classes["nav-link"]} >
+                                          <a className={classes["a"]} href="/login">Login</a>
+                                      </li>
+                                   </> ) : (<>
+                                      <li className={classes["nav-link"]} >
+                                        <a className={classes["a"]} href="/profile">Profile</a>
+                                      </li>
+                                      <li className={classes["nav-link"]} >
+                                          <a className={classes["a"]} href="/logout">Logout</a>
+                                      </li>   
+                                   </> )}
+                                    
+                                </ul>
+                            </div>
+
+                     
+                        </div>
+
+                        <div className={classes["hamburger-menu-container"]}>
+                            <div className={classes["hamburger-menu"]} onClick={hamburgerHandler}>
+                                <div></div>
+                            </div>
+                        </div>
                     </div>
-                    <ul className={navLinksClass} onClick={hamburgerHandler}>
-                        <Link to="/" className={classes["RouterLink"]}>
-                          <li key="home" className={linkClass}><a>Home</a></li>
-                        </Link>
-                        <Link to="/products" className={classes["RouterLink"]}>
-                          <li key="products" className={linkClass}><a>Products</a></li>
-                        </Link>
-                        <Link to="/news" className={classes["RouterLink"]}>
-                          <li key="news" className={linkClass}><a>News</a></li>
-                        </Link>
-                        <Link to="/about" className={classes["RouterLink"]}>
-                          <li key="about" className={linkClass}><a>About</a></li>
-                        </Link>
-                        <Link to="/contact" className={classes["RouterLink"]}>
-                          <li key="contact" className={linkClass}><a>Contact Us</a></li>
-                        </Link>
-                        {!(state.isAuthenticated) ? (<><Link to="/register" className={classes["RouterLink"]}>
-                          <li key="register" className={linkClass}><a>Register</a></li>
-                        </Link>
-                        <Link to="/login" className={classes["RouterLink"]}>
-                          <li key="login" className={linkClass}><a>Login</a></li>
-                        </Link></>) : (<>
-                        <Link to="/profile" className={classes["RouterLink"]}>
-                          <li key="register" className={linkClass}><a>Profile</a></li>
-                        </Link>
-                        <Link to="/logout" className={classes["RouterLink"]}>
-                          <li key="login" className={linkClass}><a>LogOut</a></li>
-                        </Link>
-                        </>)}
-                    </ul>
-                </nav>
+                </div>
                 {props.children}
             </Aux>
         )
