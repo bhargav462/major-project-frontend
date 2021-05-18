@@ -4,91 +4,110 @@ import {AuthContext} from './../../../../App';
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const useForm = (callback,validate) => {
-    const [values,setValues] = useState({
-        cropName: '',
-        weight: '',
-        price: '',
-        description: '',
-        address: '',
-        images: null
-    })
+const useForm = (callback,validate,setSearch) => {
+  const [values,setValues] = useState({
+      cropName: '',
+      weight: '',
+      price: '',
+      description: '',
+      address: '',
+      pincode: '',
+      images: null
+  })
 
-    const {dispatch} = React.useContext(AuthContext)
-    
-    const [errors,setError] = useState({});
-    const [isSubmitting,setIsSubmitting] = useState(false);
+  let [cropId,setCropId] = useState("")
 
-    const handleChange = e => {
-      const {name} = e.target
-        if(name === "images")
-        {
-            console.log(e);
-            console.log(e.target.files)
-            console.log(e.target)
-            const value = e.target.files
-            setValues({
-              ...values,
-              [name] : value
-            })
-        }else{
-          const {value} = e.target;
+  const {dispatch} = React.useContext(AuthContext)
+  
+  const [errors,setError] = useState({});
+  const [isSubmitting,setIsSubmitting] = useState(false);
+
+  const handleChange = e => {
+    const {name} = e.target
+      if(name === "images")
+      {
+          console.log(e);
+          console.log(e.target.files)
+          console.log(e.target)
+          const value = e.target.files
           setValues({
             ...values,
             [name] : value
           })
-        }
-        // console.log(value)
-    }
+      }else{
+        const {value} = e.target;
+        setValues({
+          ...values,
+          [name] : value
+        })
+      }
+      // console.log(value)
+  }
 
-    const handleSubmit = e => {
+  const handleSubmit = e => {
 
-        console.log(values);
+      console.log(values);
 
-        e.preventDefault();
+      e.preventDefault();
 
-        setError(validate(values))
-        setIsSubmitting(true);
-    }
+      setError(validate(values))
+      setIsSubmitting(true);
+  }
 
-    useEffect(() => {
-        if(Object.keys(errors).length === 0 && isSubmitting){
-          console.log('env',process.env)
+  const getFormData = (data,id,search) => {
+    setValues({
+      images: data.images,
+      cropName: data.crop,
+      weight: data.amount,
+      price: data.price,
+      description: data.description,
+      address: data.address,
+      pincode: data.pincode
+    })
+    setCropId(id)
+    console.log("getFormId",cropId)   
+  }
 
-          let formData = new FormData();
+  useEffect(() => {
+      if(Object.keys(errors).length === 0 && isSubmitting){
+        console.log('env',cropId)
 
-          for(let prop in values){
-              console.log("prop",prop)
-              if(prop === "images"){
-                for(let imageProp in values[prop])
-                {
-                  if(imageProp !== "length")
-                  formData.append(prop,values[prop][imageProp])
-                }
-              }else{
-                formData.append(prop,values[prop])
-              }
-          }
+        fetch(`${process.env.REACT_APP_API_URL}/products/farmer/deleteCrop`,{
+          method: 'POST',
+          headers: {
+              'content-type': 'application/json',
+              'token': JSON.parse(Cookies.get('token')).token
+          },
+          body:JSON.stringify({
+              id: cropId
+          })
+        }).then(res => {
+              console.log("response",res)
+              return res.json()
+        })
+        .then(data => {
+            console.log("data",data);
+            if(data.error){
+              return swal(data.error)
+            }
+            swal("Data was Deleted successfully")
 
-          for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-          }
-          
-          fetch('https://major-project-back-end.herokuapp.com/products/farmer/addCrop',{
-            method: 'post',
-            body: formData
-          }).then(ress => ress.json())
-          .then((response) => {
-                alert("The file is successfully uploaded");
-                console.log(response)
-          }).catch((error) => {
-            console.log("error",error)
-          });
+            setValues({
+                cropName: '',
+                weight: '',
+                price: '',
+                description: '',
+                address: '',
+                images: null
+            })
+            setSearch()
 
-        }
-    },[errors])
+        })
 
-    return {handleChange,values,handleSubmit,errors};
+      }
+  },[errors])
+
+  return {handleChange,values,handleSubmit,getFormData,errors};
 }
 
 export default useForm;

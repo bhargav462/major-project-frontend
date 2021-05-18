@@ -4,8 +4,8 @@ import validate from './useForm/validateInfo'
 import classes from './Login.module.css';
 import {Link} from 'react-router-dom';
 
-const SignIn = ({submitForm}) => {
-        const {handleChange,values,handleSubmit,errors} = useForm(submitForm,validate);
+const SignIn = ({submitForm,userType}) => {
+        const {handleChange,values,handleSubmit,errors} = useForm(submitForm,userType,validate);
         return (
             <div className={classes["login-container"]} >
                 <form onSubmit={handleSubmit} className={classes["form"]}>

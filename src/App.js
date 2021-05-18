@@ -12,6 +12,7 @@ import Cookies from 'js-cookie'
 import ProductDetails from './components/products/productsDetails/ProductDetails'
 import addCrop from './components/farmers/addCrop/addCrop'
 import updateCrop from './components/farmers/updateCrop/updateCrop'
+import deleteCrop from './components/farmers/deleteCrop/deleteCrop'
 
 export const AuthContext = React.createContext();
 
@@ -29,7 +30,7 @@ const reducer = (state,action) => {
        return {
          ...state,
          isAuthenticated: true,
-         user: action.payload.user
+         user: localStorage.getItem("user")
        };
     case "LOGOUT":
       localStorage.clear();
@@ -42,7 +43,7 @@ const reducer = (state,action) => {
       return{
         ...state,
         isAuthenticated: Cookies.get('token') === undefined ? false : true,
-        user: localStorage.getItem('user')
+        user: localStorage.getItem("user")
       };
   }
 }
@@ -70,7 +71,7 @@ function App() {
             <Route path="/error" exact component={Error} />
             <Route path="/farmer/addCrop" exact component={addCrop} />
             <Route path="/farmer/updateCrop" exact component={updateCrop} />
-            <Route path="/farmer/deleteCrop" exact component={updateCrop} />
+            <Route path="/farmer/deleteCrop" exact component={deleteCrop} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/land/:id" exact component={ProductDetails} />
             <Route path="/logout" render={() => {

@@ -3,7 +3,8 @@ import Cookies from 'js-cookie'
 import {AuthContext} from './../../../App';
 import swal from 'sweetalert'
 
-const useForm = (callback,validate) => {
+const useForm = (callback,userType,validate) => {
+  console.log("useForm",userType)
     const [values,setValues] = useState({
         username: '',
         email: '',
@@ -33,6 +34,7 @@ const useForm = (callback,validate) => {
     }
 
     useEffect(() => {
+      console.log("userType",userType)
         if(Object.keys(errors).length === 0 && isSubmitting){
           console.log('env',process.env)
             fetch(`${process.env.REACT_APP_API_URL}/auth/register`,{
@@ -44,7 +46,8 @@ const useForm = (callback,validate) => {
                   name : values.username,
                   email : values.email,
                   phoneNo : values.phoneNo,
-                  password : values.password
+                  password : values.password,
+                  type: userType
                 })
               }).then(async (res) => {
                 if(res.ok){
@@ -63,7 +66,8 @@ const useForm = (callback,validate) => {
                       user: {
                         name: values.username,
                         email: values.email,
-                        phoneNo: values.phoneNo
+                        phoneNo: values.phoneNo,
+                        type: userType
                       }
                     }
                   })

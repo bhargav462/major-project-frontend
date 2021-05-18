@@ -11,6 +11,7 @@ const useForm = (callback,validate) => {
         price: '',
         description: '',
         address: '',
+        pincode: '',
         images: null
     })
 
@@ -73,13 +74,37 @@ const useForm = (callback,validate) => {
           for (var pair of formData.entries()) {
             console.log(pair[0]+ ', ' + pair[1]); 
           }
-          
-          fetch('https://major-project-back-end.herokuapp.com/products/farmer/addCrop',{
+          console.log("Cookies",Cookies.get('token'))
+          const token = JSON.parse(Cookies.get('token'))
+          fetch(`${process.env.REACT_APP_API_URL}/products/farmer/addCrop`,{
             method: 'post',
-            body: formData
-          }).then(ress => ress.json())
+            body: formData,
+            headers:{
+              "token":token.token
+            }
+          }).then(ress => {
+            console.log("ress",ress)
+            if(ress.status === 401)
+            {
+              swal("Please Login")
+            }
+            return ress.json()
+          })
           .then((response) => {
-                alert("The file is successfully uploaded");
+                if(response.error){
+                  return swal(response.error)
+                }
+                swal(`Your product id is ${response.id}`)
+                setValues({
+                  cropName: '',
+                  weight: '',
+                  price: '',
+                  description: '',
+                  address: '',
+                  pincode: '',
+                  images: null 
+                })
+                setIsSubmitting(false)
                 console.log(response)
           }).catch((error) => {
             console.log("error",error)

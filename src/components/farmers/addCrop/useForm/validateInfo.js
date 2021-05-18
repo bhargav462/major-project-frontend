@@ -23,5 +23,12 @@ export default function validateInfo(values){
         errors.address = 'Address is required'
     }
 
+    if(values.images === null){
+        errors.images = 'Images are required'
+    }
+
+    if(values.pincode < 10000 || values.pincode > 1000000)
+    errors.pincode = "Enter a valid pincode"
+
     return errors;
 }

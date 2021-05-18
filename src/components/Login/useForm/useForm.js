@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import {AuthContext} from './../../../App'
 import swal from 'sweetalert';
 
-const useForm = (callback,validate) => {
+const useForm = (callback,userType,validate) => {
     const [values,setValues] = useState({
         username: '',
         email: '',
@@ -38,7 +38,8 @@ const useForm = (callback,validate) => {
                 },
                 body : JSON.stringify({
                   email : values.email,
-                  password : values.password
+                  password : values.password,
+                  type: userType
                 })
               }).then(res => {
                 console.log("res",res);
@@ -61,7 +62,8 @@ const useForm = (callback,validate) => {
                         payload: {
                           isAuthenticated: true,
                           user: {
-                            email: values.email
+                            email: values.email,
+                            type: userType
                           }
                         }
                       })

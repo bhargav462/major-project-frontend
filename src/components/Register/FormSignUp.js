@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import useForm from '../farmers/addCrop/useForm/useForm'
-import validate from '../farmers/addCrop/useForm/validateInfo'
+import useForm from './useForm/useForm'
+import validate from './useForm/validateInfo'
 import {Link} from 'react-router-dom';
 import classes from './register.module.css';
 
-const SignUp = ({submitForm}) => {
-        const {handleChange,values,handleSubmit,errors} = useForm(submitForm,validate);
+const SignUp = ({submitForm,userType}) => {
+       console.log("form",userType)
+        const {handleChange,values,handleSubmit,errors} = useForm(submitForm,userType,validate);
         return (
             <div className={`${classes["register-container"]} ${classes.check}`} >
                 <form onSubmit={handleSubmit} className={classes["form"]}>

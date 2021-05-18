@@ -75,3 +75,19 @@
   background-color: #ccffcc;
   text-align: center;
 }
+
+.userType-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.userType{
+  width: 220px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  padding-left: 20px;
+}

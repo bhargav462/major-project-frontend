@@ -89,7 +89,21 @@ const AddCrop = () => {
                         />
                         {errors.address && <p className={classes["warning"]}>{errors.address}</p>}
                     </div>
-
+                    <div >
+                        <label htmlFor="pincode" >
+                             <b style={{fontSize:'25px'}}>Pincode</b>
+                        </label>
+                        <input
+                            id="pincode"
+                            type="number"
+                            name="pincode"
+                            className={classes["formInput"]}
+                            placeholder="Pincode"
+                            value={values.pincode}
+                            onChange={handleChange}
+                        />
+                        {errors.pincode && <p className={classes["warning"]}>{errors.pincode}</p>}
+                    </div>
                     <div >
                         <label htmlFor="images" >
                              <b style={{fontSize:'25px'}}>Images</b>

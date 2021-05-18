@@ -4,15 +4,18 @@ import {AuthContext} from './../../../../App';
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const useForm = (callback,validate) => {
+const useForm = (callback,validate,setSearch) => {
     const [values,setValues] = useState({
         cropName: '',
         weight: '',
         price: '',
         description: '',
         address: '',
+        pincode: '',
         images: null
     })
+
+    let [cropId,setCropId] = useState("")
 
     const {dispatch} = React.useContext(AuthContext)
     
@@ -51,44 +54,67 @@ const useForm = (callback,validate) => {
         setIsSubmitting(true);
     }
 
+    const getFormData = (data,id,search) => {
+      setValues({
+        images: data.images,
+        cropName: data.crop,
+        weight: data.amount,
+        price: data.price,
+        description: data.description,
+        address: data.address,
+        pincode: data.pincode
+      })
+      setCropId(id)
+      console.log("getFormId",cropId)   
+      setSearch = search
+    }
+
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting){
-          console.log('env',process.env)
+          console.log('env',cropId)
 
-          let formData = new FormData();
-
-          for(let prop in values){
-              console.log("prop",prop)
-              if(prop === "images"){
-                for(let imageProp in values[prop])
-                {
-                  if(imageProp !== "length")
-                  formData.append(prop,values[prop][imageProp])
-                }
-              }else{
-                formData.append(prop,values[prop])
+          fetch(`${process.env.REACT_APP_API_URL}/products/farmer/updateCrop`,{
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'token': JSON.parse(Cookies.get('token')).token
+            },
+            body:JSON.stringify({
+                id: cropId,
+                crop: values.cropName,
+                address: values.address,
+                price: values.price,
+                amount: values.weight,
+                description: values.description,
+                pincode: values.pincode
+            })
+          }).then(res => {
+                console.log("response",res)
+                return res.json()
+          })
+          .then(data => {
+              console.log("data",data);
+              if(data.error){
+                return swal(data.error)
               }
-          }
+              swal("Data was uploaded successfully")
 
-          for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-          }
-          
-          fetch('https://major-project-back-end.herokuapp.com/products/farmer/addCrop',{
-            method: 'post',
-            body: formData
-          }).then(ress => ress.json())
-          .then((response) => {
-                alert("The file is successfully uploaded");
-                console.log(response)
-          }).catch((error) => {
-            console.log("error",error)
-          });
+              setValues({
+                  cropName: '',
+                  weight: '',
+                  price: '',
+                  description: '',
+                  address: '',
+                  images: null
+              })
+              setSearch()
+
+          })
 
         }
     },[errors])
 
-    return {handleChange,values,handleSubmit,errors};
+    return {handleChange,values,handleSubmit,getFormData,errors};
 }
 
 export default useForm;

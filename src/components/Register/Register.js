@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
 import {AuthContext} from './../../App'
 import classes from './register.module.css'
+import userTypes from './../../utilities/enums/userTypes'
 
 const Register = () => {
   let history = useHistory();
@@ -13,7 +14,7 @@ const Register = () => {
     history.push('/profile');
   }
 
-  const [userType,setUserType] = useState("select")
+  const [userType,setUserType] = useState(userTypes.SELECT)
 
   const responseSuccessGoogle = (response) => {
     console.log("response",response)
@@ -26,8 +27,9 @@ const Register = () => {
       body : JSON.stringify({
         name : profileObj.name,
         googleId : profileObj.googleId,
-        email : profileObj.email,
-        image : profileObj.imageUrl
+        email : profileObj.email, 
+        image : profileObj.imageUrl,
+        type : userType
       })
     }).then(res => res.json())
     .then(data => {
@@ -39,7 +41,8 @@ const Register = () => {
           isAuthenticated: true,
           user: {
             name: profileObj.name,
-            email: profileObj.email
+            email: profileObj.email,
+            type: userType
           }
         }
       })
@@ -59,20 +62,20 @@ const Register = () => {
 
   return (
     <>      
-            { userType === "select" ? 
+            { userType === userTypes.SELECT ? 
                 <div className={classes["userType-container"]}>
-                  <select className={classes["userType"]} onChange={userTypeHandler}>
-                    <option value="select">Select</option>
-                    <option value="farmer">Farmer</option>
-                    <option value="buyer">Buyer</option>
+                  <select className={classes["userType"]} onChange={userTypeHandler} value={userType}>
+                    <option value={userTypes.SELECT}>Select</option>
+                    <option value={userTypes.FARMER}>Farmer</option>
+                    <option value={userTypes.BUYER}>Buyer</option>
                   </select>
                 </div> :
               <>
                 <div className={classes["userType-container"]}>
-                  <select className={classes["userType"]} onChange={userTypeHandler}>
-                    <option value="select">Select</option>
-                    <option value="farmer">Farmer</option>
-                    <option value="buyer">Buyer</option>
+                  <select className={classes["userType"]} onChange={userTypeHandler} value={userType}>
+                    <option value={userTypes.SELECT}>Select</option>
+                    <option value={userTypes.FARMER}>Farmer</option>
+                    <option value={userTypes.BUYER}>Buyer</option>
                   </select>
                 </div>
                 <div style={{textAlign:'center',marginTop:'15px'}}>
@@ -84,7 +87,7 @@ const Register = () => {
                   cookiePolicy={'single_host_origin'}
                  />
                 </div>
-                <FormSignup submitForm={submitForm} />
+                <FormSignup submitForm={submitForm} userType={userType}/>
               </>
             }
     </>

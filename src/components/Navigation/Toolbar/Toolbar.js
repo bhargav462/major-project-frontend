@@ -4,11 +4,13 @@ import Logo from '../../../assets/images/newLogo1.png'
 import classes from './Toolbar.module.css';
 import {Link} from 'react-router-dom';
 import {AuthContext} from "../../../App";
+import userTypes from './../../../utilities/enums/userTypes'
 
 function Toolbar(props){
   const {state,dispatch} = React.useContext(AuthContext);
 
   const [hamburger,setHamburger] = useState(true);
+  const [userType,setUserType] = useState(null);
 
    let [navLinksClass,setNavlinksClass] = useState(classes["NavLinks"]);
    let [linkClass,setLinkClass] = useState("");
@@ -19,13 +21,26 @@ function Toolbar(props){
    }
 
    useEffect(() => {
-     console.log("using effect",dispatch({}),state)
+     dispatch({})
+     console.log("using effect",state)
    }, [hamburger])
+
+   useEffect(async () => {
+    //  await dispatch({})
+     console.log("usingeffectives",state)
+     console.log(userType)
+     if(state.user && userType === null){
+         console.log("state,user",JSON.parse(state.user).type)
+         setUserType(JSON.parse(state.user).type)
+     }
+   })
 
         return(
             <Aux>
               {console.log("toolbar state",state)}
               {console.log("props",props)}
+              {console.log(state.user)}
+              {state.user ? console.log(state.user.type) : null}
               <div className={classes["header"]}>
                     <div className={classes["container"]}>
                         <input type="checkbox" name="" className={classes["check"]} />
@@ -41,7 +56,7 @@ function Toolbar(props){
                                     <li className={classes["nav-link"]}>
                                         <a href="/" className={classes['a']}>Home</a>
                                     </li>
-                                    <li className={classes["nav-link"]} >
+                                    {(state.user ? (userType === userTypes.FARMER  ? (<li className={classes["nav-link"]} >
                                         <a className={classes["a"]} href="#">Farmer<i className="fas fa-caret-down"></i></a>
                                         <div className={classes["dropdown"]}>
                                             <ul className={classes["ul"]}>
@@ -57,7 +72,7 @@ function Toolbar(props){
                                                 <div className={classes["arrow"]}></div>
                                             </ul>
                                         </div>
-                                    </li>
+                                    </li>) : "") : "")}
                                     <li className={classes["nav-link"]} >
                                         <a className={classes["a"]} href="/products">Products</a>
                                     </li>
