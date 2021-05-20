@@ -1,0 +1,58 @@
+.city{
+    display:flex;
+}
+  
+.city > *{
+    margin: 2%;
+    margin-top: 0px;
+    flex-basis: 100%;
+}
+
+  
+.input{
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+.searchButton{
+  background-color: #069b2b; /* Green */
+  border: 1px solid #9cf3b9;
+  border-radius: 10px;
+  color: white;
+  width: 200px;
+  height: 50px;
+  /* padding: 15px 32px; */
+  /* text-align: center; */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 10px; */
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+  
+.searchButton:hover{
+    border: 2px solid #8ff59d;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+@media screen and (max-width: 872px)
+{
+  .city{
+    flex-direction: column;
+  }
+
+  .searchButton{
+    width: 200px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}

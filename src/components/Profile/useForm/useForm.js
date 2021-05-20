@@ -2,18 +2,18 @@ import React,{useState,useEffect} from 'react';
 import Cookies from 'js-cookie'
 import {AuthContext} from './../../../App'
 import getUserData from './../../../utilities/userData/userData'
+import swal from 'sweetalert'
 
 const useForm = (callback,validate) => {
     const [values,setValues] = useState({
         username: '',
         email: '',
         phoneNo: '',
-        houseNo: '',
-        landmark: '',
-        district: '',
-        state: ''
+        address: '',
+        pincode: ''
     })
-    const {state,dispatch} = React.useContext(AuthContext)
+    const [product,setProduct] = useState(null)
+    // const {state,dispatch} = React.useContext(AuthContext)
     const [errors,setError] = useState({});
     const [isSubmitting,setIsSubmitting] = useState(false);
 
@@ -26,18 +26,36 @@ const useForm = (callback,validate) => {
     }
 
     useEffect(() => {
-      let user = getUserData();
-      console.log("user",user);
-      user = JSON.parse(user);
       if(values.email === ''){
-        setValues({
-          username: user.name,
-          email: user.email,
-          phoneNo: user.phoneNo,
-          houseNo: user.houseNo,
-          landmark: user.landmark,
-          district: user.district,
-          state: user.state
+
+        fetch(`${process.env.REACT_APP_API_URL}/profile`,{
+          method: 'POST',
+          headers:{
+            'content-type' : 'application/json',
+            token: JSON.parse(Cookies.get('token')).token
+          }
+        }).then(res => res.json())
+        .then(data => {
+
+          if(data.error){
+            swal(data.error)
+          }
+
+          console.log("profile Data",data)
+
+          const {user} = data
+          const {products} = data
+          setProduct(products)
+          console.log("user",user)
+          
+          setValues({
+            username: user.name,
+            email: user.email,
+            phoneNo: user.phoneNo,
+            address: user.address,
+            pincode: user.pincode
+          })
+
         })
       }
     },[])
@@ -50,50 +68,33 @@ const useForm = (callback,validate) => {
     }
 
     useEffect(() => {
+      console.log("length",Object.keys(errors).length)
         if(Object.keys(errors).length === 0 && isSubmitting){
-          console.log('env',process.env)
-            fetch(`${process.env.REACT_APP_API_URL}/auth/register`,{
-                method: 'POST',
-                headers : {
-                  'Content-Type' : 'Application/json'
-                },
-                body : JSON.stringify({
-                  name : values.username,
-                  email : values.email,
-                  phoneNo : values.phoneNo,
-                  password : values.password
-                })
-              }).then(async (res) => {
-                if(res.ok){
-                  return res.json();
-                }
-                console.log("res",res);
-                if(res.status === 403){
-                   await res.json().then(data => {
-                     if(data.error === "email"){
-                        setError({email: "Email already in use"})   
-                        return 'error'                    
-                     }else if(data.error === "phoneNo"){
-                       setError({phoneNo: "Phone Number already in use"})
-                       return 'error'
-                     }
-                     console.log("resData",data);
-                   })
-                }
-                return 'error'
-              })
-              .then(data => {
-                if(data !== 'error'){
-                  console.log("data",data);
-                  Cookies.set('token', data, { expires: 1 })
-                  callback();
-                }
-              })
-              
+          const token = JSON.parse(Cookies.get('token')).token
+          fetch(`${process.env.REACT_APP_API_URL}/profile/update`,{
+            method: 'POST',
+            headers:{
+              'content-type':'application/json',
+              token
+            },
+            body:JSON.stringify({
+              name: values.username,
+              phoneNo: values.phoneNo,
+              address: values.address,
+              pincode: values.pincode
+            })
+          }).then(res => res.json())
+          .then(data => {
+            if(data.error){
+              swal(data.error)
+            }else{
+              swal("Profile was uploaded successfully")
+            }
+          })
         }
     },[errors])
 
-    return {handleChange,values,handleSubmit,errors};
+    return {handleChange,values,handleSubmit,errors,product};
 }
 
 export default useForm;

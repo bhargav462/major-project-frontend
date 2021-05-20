@@ -1,0 +1,32 @@
+.user-container{
+    display: flex;
+    background-color: #94C973;
+    margin: 20px;
+    padding: 20px;
+}
+
+.user-container > *{
+    flex-basis: 100%;
+}
+
+.counter-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.counter{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: fit-content;
+    background-color: #B1D8B7;
+    border-radius: 100%;
+    padding: 10px;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 620px){
+    .user-container{
+        flex-direction: column;
+    }
+}

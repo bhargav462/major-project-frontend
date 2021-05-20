@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import useForm from './useForm/useForm'
 import validate from './useForm/validateInfo'
 import {Link} from 'react-router-dom';
@@ -6,9 +6,26 @@ import classes from './updateCrop.module.css';
 import Cookies from 'js-cookie'
 import swal from 'sweetalert';
 
-const UpdateCrop = () => {
+const UpdateCrop = ({match:{params}}) => {
 
         const [cropId,setCropId] = useState("")
+        const [paramCropId,setParamCropId] = useState("")
+
+        useEffect(async() => {
+            console.log("Effect using",params)
+            if(params.id && !cropId){
+                console.log("cropId")
+                setCropId(params.id)
+                setParamCropId(params.id)
+                console.log("cr",cropId)
+            }
+        });
+
+        useEffect(() => {
+            if(cropId !== ""){
+                searchHandler()
+            }
+        },[paramCropId])
 
         const submitForm = () => {
             console.log("Submit Form")
@@ -17,6 +34,7 @@ const UpdateCrop = () => {
 
         const setTheSetSearch = () => {
             setSearch(true)
+            setCropId("")
         }
 
         const {handleChange,values,handleSubmit,getFormData,errors} = useForm(submitForm,validate,setTheSetSearch);
@@ -29,6 +47,7 @@ const UpdateCrop = () => {
         const searchHandler = () => {
             setSearch(true) 
             console.log("searchHolder",cropId)
+            try{
             fetch(`${process.env.REACT_APP_API_URL}/products/getCrop/id`,{
                 method: 'POST',
                 headers: {
@@ -49,7 +68,15 @@ const UpdateCrop = () => {
                 }
                 getFormData(data,cropId)
                 setSearch(false)
+                // setCropId("")
             })
+
+            }catch(e){
+                if(!Cookies.get('token')){
+                    swal("Please Login")
+                    localStorage.clear()
+                }
+            }
             
         }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import classes from './ProductContent.module.css';
+import classes from './cropContent.module.css';
 
-class CardContent extends Component
+class CropContent extends Component
 {
    crop = this.props.crop
    farmer = this.props.farmer
@@ -39,4 +39,4 @@ class CardContent extends Component
     }
 }
 
-export default CardContent;
+export default CropContent;

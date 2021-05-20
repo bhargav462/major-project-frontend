@@ -1,34 +1,24 @@
 export default function validateInfo(values){
     let errors = {};
-    console.log(values.phoneNo.length)
-
-    if(!values.username.trim()){
-        errors.username = "Username required"
-    }
-
-    if(!values.email){
-        errors.email = "Email Required"
-    }else if (!/\S+@\S+\.\S+/.test(values.email)) {
-        errors.email = 'Email address is invalid';
-    }
+    console.log("error check",values)
 
     if(!values.phoneNo){
         errors.phoneNo = "Phone Number Required"
-    }else if(!(values.phoneNo.length === 10)){
+    }else if(!(values.phoneNo.toString().length === 10)){
         errors.phoneNo = "Enter a valid phone Number"
     }
 
-    if(!values.password){
-        errors.password = 'Password is required';
-    }else if(values.password.length < 6){
-        errors.password = 'Password need to 6 characters or more'
+    if(!values.pincode){
+        errors.pincode = "Pincode Required"
+    }else if(!(values.pincode.length === 6)){
+        errors.pincode = "Enter a valid Pincode"
     }
 
-    if(!values.password2){
-        errors.password2 = 'Password is required'
-    }else if(values.password2 !== values.password){
-        errors.password2 = "Passwords do not match"
+    if(!values.address.trim()){
+        errors.address = "Enter a Valid address"
     }
+
+    console.log("errors",errors)
 
     return errors;
 }

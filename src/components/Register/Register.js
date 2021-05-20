@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom'
 import {AuthContext} from './../../App'
 import classes from './register.module.css'
 import userTypes from './../../utilities/enums/userTypes'
+import swal from 'sweetalert';
 
 const Register = () => {
   let history = useHistory();
@@ -33,6 +34,9 @@ const Register = () => {
       })
     }).then(res => res.json())
     .then(data => {
+      if(data.error){
+        return swal(data.error)
+      }
       console.log("data",data);
       Cookies.set('token', data, { expires: 1 })
       dispatch({

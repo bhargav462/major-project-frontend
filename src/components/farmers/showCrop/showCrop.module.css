@@ -63,6 +63,36 @@
     outline: none;
     transition: 0.5s;
 }
+  
+.btn:hover {
+opacity: 1;
+}
+
+.btn-container{
+    display: flex;
+  }
+  
+  .btn-container > *{
+    flex-basis: 100%;
+  }
+
+  .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 20px;
+    border: none;
+    cursor: pointer;
+    /* width: fit-content; */
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+    border: 0px solid white;
+    border-radius: 20px 10px 20px 10px;
+    box-shadow: 0px 8px 15px #c8dda7;
+    font-size: 20px;
+  }
 
 @media screen and (max-height:500px){
     .slide{

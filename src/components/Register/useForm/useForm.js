@@ -50,14 +50,13 @@ const useForm = (callback,userType,validate) => {
                   type: userType
                 })
               }).then(async (res) => {
-                if(res.ok){
                   return res.json();
-                }else{
-                   throw res.json();
-                }
               })
               .then(data => {
                   console.log("data",data);
+                  if(data.error){
+                    return swal(data.error)
+                  }
                   Cookies.set('token', data, { expires: 1 })
                   dispatch({
                     type: "LOGIN",
@@ -73,17 +72,7 @@ const useForm = (callback,userType,validate) => {
                   })
                   callback();
               }).catch(e => {
-                console.log("error",e);
-                e.then(data => {
-                  if(data.error === "email"){
-                     setError({email: "Email already in use"})   
-                  }else if(data.error === "phoneNo"){
-                    setError({phoneNo: "Phone Number already in use"})
-                  }else{
-                    swal("Internal server error");
-                  }
-                  console.log("resData",data);
-                })
+                swal(e)
               })
         }
     },[errors])

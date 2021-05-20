@@ -10,9 +10,11 @@ import Profile from './components/Profile/Profile'
 import history from './utilities/history/history'
 import Cookies from 'js-cookie'
 import ProductDetails from './components/products/productsDetails/ProductDetails'
+import CropDetails from './components/farmers/showCrop/showCrop'
 import addCrop from './components/farmers/addCrop/addCrop'
 import updateCrop from './components/farmers/updateCrop/updateCrop'
 import deleteCrop from './components/farmers/deleteCrop/deleteCrop'
+import Footer from './components/Navigation/Footer/Footer'
 
 export const AuthContext = React.createContext();
 
@@ -70,10 +72,11 @@ function App() {
             <Route path="/products" exact component={Products} />
             <Route path="/error" exact component={Error} />
             <Route path="/farmer/addCrop" exact component={addCrop} />
-            <Route path="/farmer/updateCrop" exact component={updateCrop} />
-            <Route path="/farmer/deleteCrop" exact component={deleteCrop} />
+            <Route path="/farmer/updateCrop/:id?" exact component={updateCrop} />
+            <Route path="/farmer/deleteCrop/:id?" exact component={deleteCrop} />
             <Route path="/profile" exact component={Profile} />
-            <Route path="/land/:id" exact component={ProductDetails} />
+            <Route path="/crop/:id" exact component={ProductDetails} />
+            <Route path="/farmer/crop/:id" exact component={CropDetails} />
             <Route path="/logout" render={() => {
                 localStorage.clear();
                 Cookies.remove("token");
@@ -83,6 +86,7 @@ function App() {
             }} />
             <Route render={() => <Redirect to={{pathname: "/"}} />} />
           </Switch>
+          <Footer />
         </Router>
       </div>
     </AuthContext.Provider>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import useForm from './useForm/useForm'
 import validate from './useForm/validateInfo'
 import {Link} from 'react-router-dom';
@@ -6,8 +6,25 @@ import classes from './deleteCrop.module.css';
 import Cookies from 'js-cookie'
 import swal from 'sweetalert'
 
-const DeleteCrop = () => {
+const DeleteCrop = ({match:{params}}) => {
     const [cropId,setCropId] = useState("")
+    const [paramCropId,setParamCropId] = useState("")
+
+    useEffect(async() => {
+        console.log("Effect using",params)
+        if(params.id && !cropId){
+            console.log("cropId")
+            setCropId(params.id)
+            setParamCropId(params.id)
+            console.log("cr",cropId)
+        }
+    });
+
+    useEffect(() => {
+        if(cropId !== ""){
+            searchHandler()
+        }
+    },[paramCropId])
 
     const submitForm = () => {
         console.log("Submit Form")
@@ -48,6 +65,7 @@ const DeleteCrop = () => {
             }
             getFormData(data,cropId)
             setSearch(false)
+            setCropId("")
         })
         
     }
