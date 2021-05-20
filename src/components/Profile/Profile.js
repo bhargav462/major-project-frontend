@@ -92,7 +92,7 @@ const Profile = ({submitForm}) => {
                         
                         <div></div>
                     </form>
-                    <button type="submit" className={classes["registerbtn"]} style={{textAlign:"center",alignItems:'center',justifyContent:'center',marginLeft:'auto',marginRight:'auto'}}>
+                    <button onClick={handleSubmit} type="submit" className={classes["registerbtn"]} style={{textAlign:"center",alignItems:'center',justifyContent:'center',marginLeft:'auto',marginRight:'auto'}}>
                             Update
                     </button>
                 </div>

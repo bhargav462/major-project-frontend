@@ -62,7 +62,7 @@ const useForm = (callback,validate) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-
+        console.log("err")
         setError(validate(values))
         setIsSubmitting(true);
     }
