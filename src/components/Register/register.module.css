@@ -1,3 +1,7 @@
+.container{
+  min-height: calc(100vh - 200px);
+}  
+
 .register-container{
     font-family: 'Poppins', sans-serif;
     display: flex;

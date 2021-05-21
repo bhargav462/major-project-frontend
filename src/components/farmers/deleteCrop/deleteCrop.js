@@ -70,7 +70,7 @@ const DeleteCrop = ({match:{params}}) => {
         
     }
 
-        return ( <>
+        return ( <div className={classes["container"]}>
         <div className={classes["search-container"]} >
                     <input className={classes["search-input"]} onChange={getInputValue} value={cropId}/>
                     <button className={classes["search-btn"]} onClick={searchHandler}>Search</button>
@@ -216,7 +216,7 @@ const DeleteCrop = ({match:{params}}) => {
                         </form>
                     </div></>
                 }
-            </>
+            </div>
         );
 }
 

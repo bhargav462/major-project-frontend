@@ -67,14 +67,15 @@ const Register = () => {
   return (
     <>      
             { userType === userTypes.SELECT ? 
+                <div className={classes["container"]}>
                 <div className={classes["userType-container"]}>
                   <select className={classes["userType"]} onChange={userTypeHandler} value={userType}>
                     <option value={userTypes.SELECT}>Select</option>
                     <option value={userTypes.FARMER}>Farmer</option>
                     <option value={userTypes.BUYER}>Buyer</option>
                   </select>
-                </div> :
-              <>
+                </div></div> :
+              <div className={classes["container"]}>
                 <div className={classes["userType-container"]}>
                   <select className={classes["userType"]} onChange={userTypeHandler} value={userType}>
                     <option value={userTypes.SELECT}>Select</option>
@@ -92,7 +93,7 @@ const Register = () => {
                  />
                 </div>
                 <FormSignup submitForm={submitForm} userType={userType}/>
-              </>
+              </div>
             }
     </>
   );

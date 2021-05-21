@@ -75,11 +75,16 @@
   }
 } */
 
+.container{
+  min-height: calc(100vh - 200px);
+}
+
 .search-container{
   margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 200px);
 }
 
 .search-input{
