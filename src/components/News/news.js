@@ -8,18 +8,20 @@ const News = () => {
 
   useEffect(() => {
     
-    fetch(`${process.env.REACT_APP_API_URL}/crop/news`,{
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      }
-    }).then(res => res.json())
-    .then(data => {
-      if(data.error){
-        return swal(data.error)
-      }
-      setNews(data);
-    })
+    if(news.length === 0){
+      fetch(`${process.env.REACT_APP_API_URL}/crop/news`,{
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(res => res.json())
+      .then(data => {
+        if(data.error){
+          return swal(data.error)
+        }
+        setNews(data);
+      })
+    }
 
   }, [news])
 
