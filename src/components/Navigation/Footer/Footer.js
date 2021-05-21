@@ -5,7 +5,7 @@ const Footer = () => {
     return(<>
             <footer className={classes["footer-distributed"]}>
 			<div className={classes["footer-left"]}>
-				<h3>Company<span>logo</span></h3>
+				<h3>E-coF</h3>
 				<p className={classes["footer-links"]}>
 					<a href="/" className={classes["link-1"]}>Home</a>
 					<a href="/products">Products</a>
