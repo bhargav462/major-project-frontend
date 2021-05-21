@@ -47,7 +47,8 @@ function Toolbar(props){
                         
                         <div className={classes["logo-container"]}>
                             {/* <img src={Logo} className={classes["logoImage"]}></img> */}
-                            <h3 className={classes["logo"]}>Website<span className={classes["span"]}>Name</span></h3>
+                            <h3 className={classes["logo"]}>E-cofF</h3>
+                            <h1 className={classes["tagline"]}>e-commerce for farmers</h1>
                         </div>
 
                         <div className={classes["nav-btn"]}>
