@@ -25,9 +25,9 @@ const News = () => {
 
    return(<div className={classes["news-container"]}>
       <h1 style={{textAlign:'center'}}>News</h1>
-      {(news.length > 0 && news.map(data => {
+      {(news.length > 0 && news.map((data,index) => {
         return(
-                <div className={classes["news"]}>
+                <div key={index} className={classes["news"]}>
                 <h3>{data.commodity}</h3>
                 <div className={classes["news-content"]}>
                    <p>State : {data.state}</p>
