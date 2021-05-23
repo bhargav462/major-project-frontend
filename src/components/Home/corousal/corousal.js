@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import classes from './corousal.module.css';
 import swal from 'sweetalert';
-import land1 from './../../../assets/images/carousal1.jpg'
-import land2 from './../../../assets/images/carousal2.jpg'
+import land1 from './../../../assets/images/land7.jpg'
+import land2 from './../../../assets/images/land8.jpg'
+import land3 from './../../../assets/images/car3.jpeg'
 
 class Corousal extends Component{
 
     state = {
         x: 0,
-        crop: [land1,land2],
+        crop: [land1,land2,land3],
         farmer: null
     }
 
