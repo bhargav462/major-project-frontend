@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Aux from '../../../containers/hoc/Auxiliary/Auxiliary';
-import Logo from '../../../assets/images/newLogo1.png'
 import classes from './Toolbar.module.css';
-import {Link} from 'react-router-dom';
 import {AuthContext} from "../../../App";
 import userTypes from './../../../utilities/enums/userTypes'
 
 function Toolbar(props){
+
   const {state,dispatch} = React.useContext(AuthContext);
 
   const [hamburger,setHamburger] = useState(true);
   const [userType,setUserType] = useState(null);
-
-   let [navLinksClass,setNavlinksClass] = useState(classes["NavLinks"]);
-   let [linkClass,setLinkClass] = useState("");
 
    const hamburgerHandler = (e) => {
      console.log("hamburger click",e)
@@ -26,7 +22,6 @@ function Toolbar(props){
    }, [hamburger])
 
    useEffect(async () => {
-    //  await dispatch({})
      console.log("usingeffectives",state)
      console.log(userType)
      if(state.user && userType === null){
@@ -81,7 +76,7 @@ function Toolbar(props){
                                         <a className={classes["a"]} href="/news">News</a>
                                     </li>
                                     <li className={classes["nav-link"]} >
-                                        <a className={classes["a"]} href="#">About Us</a>
+                                        <a className={classes["a"]} href="/about">About Us</a>
                                     </li>
                                     <li className={classes["nav-link"]} >
                                         <a className={classes["a"]} href="/contact">Contact Us</a>

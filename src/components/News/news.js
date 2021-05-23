@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from 'react';
 import swal from 'sweetalert';
 import classes from './news.module.css';
+import Filter from './NewsFilter/NewsFilter'
 
 const News = () => {
 
@@ -25,8 +26,38 @@ const News = () => {
 
   }, [news])
 
+  const filterProducts = (crop) => {
+
+    console.log("crop",crop)
+
+    const newCrop = {}
+    for(var i in crop){
+      if(crop[i].trim()){
+        newCrop[i] = crop[i]
+      }
+    }
+
+    console.log("newcrop",newCrop)
+
+    fetch(`${process.env.REACT_APP_API_URL}/news/filter`,{
+      method: 'POST',
+      headers: {
+          'content-type': 'application/json'
+      },
+      body:JSON.stringify({
+        crop: newCrop
+      })
+    }).then(res => res.json())
+    .then(data => {
+      setNews(data)
+      console.log("data",data)
+    })
+
+  }
+
    return(<div className={classes["news-container"]}>
       <h1 style={{textAlign:'center'}}>News</h1>
+      <Filter filterProducts={filterProducts}/>
       {(news.length > 0 && news.map((data,index) => {
         return(
                 <div key={index} className={classes["news"]}>

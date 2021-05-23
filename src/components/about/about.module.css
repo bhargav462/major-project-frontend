@@ -1,0 +1,29 @@
+.mission{
+  background-color: rgb(169, 238, 169);
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 15px #c8dda7;
+}
+
+.mission > *{
+    text-align: center;
+    padding: 5px;
+}
+
+.intro{
+    margin:2%;
+}
+
+.format{
+    margin: 2%;
+}
+
+@media screen and (max-width: 500px){
+    .mission{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}

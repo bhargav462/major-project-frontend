@@ -15,6 +15,8 @@ import addCrop from './components/farmers/addCrop/addCrop'
 import updateCrop from './components/farmers/updateCrop/updateCrop'
 import deleteCrop from './components/farmers/deleteCrop/deleteCrop'
 import Footer from './components/Navigation/Footer/Footer'
+import About from './components/about/about'
+import Contact from './components/contact/contact'
 
 export const AuthContext = React.createContext();
 
@@ -77,6 +79,8 @@ function App() {
             <Route path="/profile" exact component={Profile} />
             <Route path="/crop/:id" exact component={ProductDetails} />
             <Route path="/farmer/crop/:id" exact component={CropDetails} />
+            <Route path="/about" exact component={About} />
+            <Route path="/contact" exact component={Contact} />
             <Route path="/logout" render={() => {
                 localStorage.clear();
                 Cookies.remove("token");

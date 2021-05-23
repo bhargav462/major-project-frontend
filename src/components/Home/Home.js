@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import swal from 'sweetalert'
 import UserCounter from './userCounter/userCounter'
+import Corousal from './corousal/corousal'
 
 class Home extends Component 
 {
@@ -42,6 +43,7 @@ class Home extends Component
     render() {
         return (
              <>
+                <Corousal />
                 <div className={classes["crop-scheme-container"]}>
                     <div>
                         <h1 style={{textAlign:'center',marginTop:'10px'}}>Popular Products</h1>
