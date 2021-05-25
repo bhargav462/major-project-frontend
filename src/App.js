@@ -44,10 +44,11 @@ const reducer = (state,action) => {
         user: null
       }
     default:
+      const isAuthenticated = Cookies.get('token') === undefined ? false : true
       return{
         ...state,
-        isAuthenticated: Cookies.get('token') === undefined ? false : true,
-        user: localStorage.getItem("user")
+        isAuthenticated,
+        user: isAuthenticated ? localStorage.getItem("user") : null
       };
   }
 }

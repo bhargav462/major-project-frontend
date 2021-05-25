@@ -75,8 +75,8 @@ class CardLayout extends Component{
                   </article>);
                  })
               }
-              {this.state.crops.length === 0 ? <p style={{marginTop:'100px'}}>Waiting ...</p> : null}  
             </main>
+            {this.state.crops.length === 0 ? <div class="fa-5x" style={{textAlign:"center",minHeight:'70vh'}}>  <i class="fas fa-spinner fa-spin"></i></div> : null}  
           </div>
         );
     }

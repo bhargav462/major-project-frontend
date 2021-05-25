@@ -5,10 +5,13 @@ import {Link} from 'react-router-dom';
 import classes from './addCrop.module.css';
 
 const AddCrop = () => {
+
         const submitForm = () => {
             console.log("Submit Form")
         }
-        const {handleChange,values,handleSubmit,errors} = useForm(submitForm,validate);
+
+        const {handleChange,values,handleSubmit,errors,disabled} = useForm(submitForm,validate);
+        
         return (
             <div className={`${classes["register-container"]} ${classes.check}`} >
                 <form onSubmit={handleSubmit} className={classes["form"]}>
@@ -121,7 +124,7 @@ const AddCrop = () => {
                         {errors.images && <p className={classes["warning"]}>{errors.images}</p>}
                     </div>
 
-                    <button type="submit" className={classes["registerbtn"]}>
+                    <button type="submit" className={classes["registerbtn"]} disabled={disabled}>
                         Submit
                     </button>
 

@@ -11,6 +11,8 @@ const useForm = (callback,userType,validate) => {
         password2: ''
     })
     const {dispatch} = React.useContext(AuthContext);
+
+    const [disabled,setDisabled] = useState(false)
     const [errors,setError] = useState({});
     const [isSubmitting,setIsSubmitting] = useState(false);
 
@@ -31,6 +33,7 @@ const useForm = (callback,userType,validate) => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting){
+          setDisabled(true)
             fetch(`${process.env.REACT_APP_API_URL}/auth/login`,{
                 method: 'POST',
                 headers : {
@@ -75,11 +78,13 @@ const useForm = (callback,userType,validate) => {
                   swal("Unexpected Error");
                 }
                 console.log("login error",e);
+              }).finally(() => {
+                setDisabled(false)
               })
         }
     },[errors])
 
-    return {handleChange,values,handleSubmit,errors};
+    return {handleChange,values,handleSubmit,errors,disabled};
 }
 
 export default useForm;

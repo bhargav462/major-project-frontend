@@ -35,7 +35,7 @@ function Toolbar(props){
               {console.log("toolbar state",state)}
               {console.log("props",props)}
               {console.log(state.user)}
-              {state.user ? console.log(state.user.type) : null}
+              {state.user ? console.log("not null",state.user.type) : null}
               <div className={classes["header"]}>
                     <div className={classes["container"]}>
                         <input type="checkbox" name="" className={classes["check"]} />

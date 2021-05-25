@@ -13,6 +13,12 @@ class Corousal extends Component{
         farmer: null
     }
 
+    componentDidMount(){
+        setInterval(() => {
+            this.goLeft()
+        }, 4000);
+    }
+
     goLeft = () => {
        this.setState((preProps) => {
         if(preProps.x === 0)
@@ -25,7 +31,7 @@ class Corousal extends Component{
     }
 
     goRight = () => {
-        console.log(this.state.x);
+        // console.log(this.state.x);
         this.setState((preProps) => {
             if(preProps.x === -100*(this.state.crop.length-1))
             {
@@ -42,7 +48,7 @@ class Corousal extends Component{
                 <div className={classes.slider}>
                     {
                         this.state.crop.map((item,index) => {
-                            console.log("index",index)
+                            // console.log("index",index)
                             return (
                                 <div key={index} className={classes.slide}
                                      style={{transform:`translateX(${this.state.x}%)`}}>

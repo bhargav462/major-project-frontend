@@ -15,6 +15,7 @@ const useForm = (callback,userType,validate) => {
 
     const {dispatch} = React.useContext(AuthContext)
     
+    const [disabled,setDisabled] = useState(false)
     const [errors,setError] = useState({});
     const [isSubmitting,setIsSubmitting] = useState(false);
 
@@ -36,6 +37,7 @@ const useForm = (callback,userType,validate) => {
     useEffect(() => {
       console.log("userType",userType)
         if(Object.keys(errors).length === 0 && isSubmitting){
+          setDisabled(true)
           console.log('env',process.env)
             fetch(`${process.env.REACT_APP_API_URL}/auth/register`,{
                 method: 'POST',
@@ -73,11 +75,13 @@ const useForm = (callback,userType,validate) => {
                   callback();
               }).catch(e => {
                 swal(e)
+              }).finally(() => {
+                setDisabled(false)
               })
         }
     },[errors])
 
-    return {handleChange,values,handleSubmit,errors};
+    return {handleChange,values,handleSubmit,errors,disabled};
 }
 
 export default useForm;

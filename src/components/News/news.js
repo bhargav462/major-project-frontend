@@ -58,6 +58,7 @@ const News = () => {
    return(<div className={classes["news-container"]}>
       <h1 style={{textAlign:'center'}}>News</h1>
       <Filter filterProducts={filterProducts}/>
+      {news.length === 0 ? <div class="fa-5x" style={{textAlign:"center",minHeight:'70vh'}}>  <i class="fas fa-spinner fa-spin"></i></div> : null}  
       {(news.length > 0 && news.map((data,index) => {
         return(
                 <div key={index} className={classes["news"]}>

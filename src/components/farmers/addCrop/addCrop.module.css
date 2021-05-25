@@ -126,6 +126,10 @@
   opacity: 1;
 }
 
+.registerbtn:disabled {
+  opacity: 0.6;
+}
+
 .warning{
   color: red;
   margin-top: -5px;

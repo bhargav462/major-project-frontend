@@ -6,7 +6,7 @@ import classes from './register.module.css';
 
 const SignUp = ({submitForm,userType}) => {
        console.log("form",userType)
-        const {handleChange,values,handleSubmit,errors} = useForm(submitForm,userType,validate);
+        const {handleChange,values,handleSubmit,errors,disabled} = useForm(submitForm,userType,validate);
         return (
             <div className={`${classes["register-container"]} ${classes.check}`} >
                 <form onSubmit={handleSubmit} className={classes["form"]}>
@@ -87,12 +87,12 @@ const SignUp = ({submitForm,userType}) => {
                         />
                         {errors.password2 && <p className={classes["warning"]}>{errors.password2}</p>}
                     </div>
-                    <button type="submit" className={classes["registerbtn"]}>
+                    {disabled ? <div class="fa-3x" style={{textAlign:"center"}}>  <i class="fas fa-spinner fa-spin"></i></div> : <><button type="submit" className={classes["registerbtn"]}>
                         Sign Up
                     </button>
                     <span type="submit" >
                         <p style={{textAlign:"center"}}>Already have an account? <Link to="/login">LOGIN</Link></p> 
-                    </span>
+                    </span></>}
                 </form>
             </div>
         );

@@ -4,7 +4,7 @@ import {AuthContext} from './../../../../App';
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const useForm = (callback,validate) => {
+const useForm = (callback,validate,EnableButton,DisableButton) => {
     const [values,setValues] = useState({
         cropName: '',
         weight: '',
@@ -14,6 +14,8 @@ const useForm = (callback,validate) => {
         pincode: '',
         images: null
     })
+
+    const [disabled,setDisabled] = useState(false)
 
     const {dispatch} = React.useContext(AuthContext)
     
@@ -50,10 +52,14 @@ const useForm = (callback,validate) => {
 
         setError(validate(values))
         setIsSubmitting(true);
+
     }
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting){
+
+          setDisabled(true)     
+
           console.log('env',process.env)
 
           let formData = new FormData();
@@ -108,12 +114,14 @@ const useForm = (callback,validate) => {
                 console.log(response)
           }).catch((error) => {
             console.log("error",error)
+          }).finally(() => {
+            setDisabled(false)
           });
 
         }
     },[errors])
 
-    return {handleChange,values,handleSubmit,errors};
+    return {handleChange,values,handleSubmit,errors,disabled};
 }
 
 export default useForm;

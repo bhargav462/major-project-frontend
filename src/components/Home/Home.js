@@ -27,6 +27,9 @@ class Home extends Component
             }
             data =  data.slice(0,4)
             this.setState({crops: data})
+        }).catch(e => {
+            console.log("error",e)
+            swal("Unable to connect to the server")
         })
     }
 
@@ -67,8 +70,8 @@ class Home extends Component
                             </article></div>);
                             })
                         }
-                        {this.state.crops.length === 0 ? <p style={{marginTop:'100px'}}>Waiting ...</p> : null}  
                     </main>
+                    {this.state.crops.length === 0 ? <div class="fa-5x" style={{textAlign:"center"}}>  <i class="fas fa-spinner fa-spin"></i></div> : null}  
                     </div>
                     <div className={classes["mrq-container"]}>
                         <h2 style={{textAlign:'center'}}>Agricultural Schemes</h2>
