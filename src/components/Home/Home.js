@@ -9,7 +9,8 @@ class Home extends Component
 {
 
     state = {
-        crops: []
+        crops: [],
+        count: null
     }
 
     componentDidMount()
@@ -31,6 +32,7 @@ class Home extends Component
             console.log("error",e)
             swal("Unable to connect to the server")
         })
+
     }
 
     mouseOverHandler = () => {
