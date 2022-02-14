@@ -74,7 +74,7 @@ class ShowCrop extends Component{
                             return (
                                 <div key={index} className={classes.slide}
                                      style={{transform:`translateX(${this.state.x}%)`}}>
-                                    <img src={`data:image/png;base64, ${item.buffer}`} className={classes.imageStyles}/>
+                                    <img src={`${process.env.REACT_APP_API_URL}${item}`} className={classes.imageStyles}/>
                                 </div>
                             )
                         })

@@ -29,7 +29,7 @@ const useForm = (callback,validate) => {
       if(values.email === ''){
 
         fetch(`${process.env.REACT_APP_API_URL}/profile`,{
-          method: 'POST',
+          method: 'GET',
           headers:{
             'content-type' : 'application/json',
             token: JSON.parse(Cookies.get('token')).token

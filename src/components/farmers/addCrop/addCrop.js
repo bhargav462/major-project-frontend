@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useForm from './useForm/useForm'
 import validate from './useForm/validateInfo'
 import {Link} from 'react-router-dom';
 import classes from './addCrop.module.css';
+import TextField from '@mui/material/TextField';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+
 
 const AddCrop = () => {
 
@@ -10,14 +13,88 @@ const AddCrop = () => {
             console.log("Submit Form")
         }
 
+        const [items,setItems] = useState([])
+        const [cropImage,setCropImage] = useState()
+
         const {handleChange,values,handleSubmit,errors,disabled} = useForm(submitForm,validate);
+        
+        useEffect(() => {
+            fetch(`${process.env.REACT_APP_API_URL}/products/cropNames`,{
+                method: 'GET',
+                headers : {
+                  'Content-Type' : 'Application/json'
+                }
+            }).then(res => {
+                return res.json()
+            }).then(data => {
+                console.log("product data",data);
+                setItems(data)
+            }).catch(e => {
+                alert(e);
+            })
+        },[])
         
         return (
             <div className={`${classes["register-container"]} ${classes.check}`} >
                 <form onSubmit={handleSubmit} className={classes["form"]}>
                     <h1 style={{textAlign:"center"}}>ADD CROP</h1>
                     <hr className={classes["hr"]}/>
+
+                    { 
+                        cropImage && values.cropName &&
+                        <div className={classes["productImage"]}>
+                            <img src={cropImage} />
+                        </div> 
+                    }
+
                     <div>
+                        <label htmlFor="cropName"  >
+                             <b style={{fontSize:'25px'}}>Crop Name</b>
+                        </label>
+                        <br/>
+                        <Autocomplete
+                            className={classes["autocompleteFormInput"]}
+                            value={values.cropName}
+                            onChange={(event, newValue) => {
+                                console.log("newValue",newValue)
+                                if(newValue?.crop){
+                                    const crop = items.find((item) => {
+                                        return item.crop === newValue.crop
+                                    })
+                                    setCropImage(`${process.env.REACT_APP_API_URL}${crop.image}`)    
+                                }else{
+                                    setCropImage("")
+                                }
+                                // if(newValue){
+                                handleChange(event,newValue?.crop,"cropName")
+                                // }
+                            }}
+                            name="cropName"
+                            selectOnFocus
+                            clearOnBlur
+                            handleHomeEndKeys
+                            options={items}
+                            getOptionLabel={(option) => {
+                                // Value selected with enter, right from the input
+                                if (typeof option === 'string') {
+                                    return option;
+                                }
+                                // Add "xxx" option created dynamically
+                                if (option.inputValue) {
+                                    return option.inputValue;
+                                }
+                                // Regular option
+                                return option.crop;
+                            }}
+                            renderOption={(props, option) => <li {...props}>{option.crop}</li>}
+                            freeSolo
+                            renderInput={(params) => (
+                            <TextField {...params} label="Please Enter Crop Name" variant="standard"/>
+                            )}
+                        />
+                        {errors.cropName && <p className={classes["warning"]}>{errors.cropName}</p>}
+                    </div>
+                    {/* <div>
                         <label htmlFor="cropName"  >
                              <b style={{fontSize:'25px'}}>Crop Name</b>
                         </label>
@@ -31,7 +108,7 @@ const AddCrop = () => {
                             onChange={handleChange}
                         />
                         {errors.cropName && <p className={classes["warning"]}>{errors.cropName}</p>}
-                    </div>
+                    </div> */}
                     <div>
                         <label htmlFor="weight" >
                              <b style={{fontSize:'25px'}}>Crop Weight (Kgs)</b>
@@ -107,7 +184,7 @@ const AddCrop = () => {
                         />
                         {errors.pincode && <p className={classes["warning"]}>{errors.pincode}</p>}
                     </div>
-                    <div >
+                    {/* <div >
                         <label htmlFor="images" >
                              <b style={{fontSize:'25px'}}>Images</b>
                         </label>
@@ -122,7 +199,7 @@ const AddCrop = () => {
                             multiple
                         />
                         {errors.images && <p className={classes["warning"]}>{errors.images}</p>}
-                    </div>
+                    </div> */}
 
                     <button type="submit" className={classes["registerbtn"]} disabled={disabled}>
                         Submit

@@ -103,7 +103,7 @@ const UpdateCrop = ({match:{params}}) => {
                                     className={classes["formInput"]}
                                     placeholder="Enter the Crop Name"
                                     value={values.cropName}
-                                    onChange={handleChange}
+                                    readOnly
                                 />
                                 {errors.cropName && <p className={classes["warning"]}>{errors.cropName}</p>}
                             </div>
@@ -191,7 +191,7 @@ const UpdateCrop = ({match:{params}}) => {
                                     {console.log("values",values)}
                                     {
                                     values.images && values.images.map((image,index) => {
-                                        return <img className={classes.images} key={index} src={`data:image/png;base64, ${image.buffer}`} />
+                                        return <img className={classes.images} key={index} src={`${process.env.REACT_APP_API_URL}${image}`} />
                                     })
                                     }
                                 </div>  

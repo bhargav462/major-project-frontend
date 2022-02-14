@@ -6,7 +6,8 @@ class ProductFilter extends Component
 
     state = {
         crop: "",
-        pincode: ""
+        pincode: "",
+        pageSize: 10
     }
 
     valueChangeHandler = (e) => {
@@ -23,7 +24,7 @@ class ProductFilter extends Component
         return(<>
            <div className={classes["filter"]}>
                 <div className={classes["city"]}>
-                    <input 
+                    {/* <input 
                         placeholder="Crop Name" 
                         className={[classes["input"],classes["number"]].join(' ')} 
                         type="text" 
@@ -40,6 +41,15 @@ class ProductFilter extends Component
                         value={this.state.pincode}
                         required 
                         onChange={this.valueChangeHandler}
+                        /> */}
+                    <input 
+                        placeholder="Page Size" 
+                        className={[classes["input"],classes["number"]].join(' ')} 
+                        type="number" 
+                        name="pageSize"
+                        onChange={this.valueChangeHandler}
+                        value={this.state.pageSize}
+                        required 
                         />
                     <div className={classes["button-container"]}>
                         <button className={classes["searchButton"]} onClick={this.filterProducts}>Search</button>

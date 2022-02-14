@@ -79,7 +79,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.formInput{
+.autocompleteFormInput,.formInput{
   width: 95%;
   padding: 10px;
   font-size: 18px;
@@ -90,6 +90,10 @@
   border: 2px solid #ccffcc;
   border-radius: 20px 10px 20px 10px;
   box-shadow: inset 3px 3px 7px #95a37e, inset -3px -3px 7px #c8dda7;
+}
+
+.autocompleteFormInput{
+  height: 2.1em;
 }
 
 .formInput:focus {
@@ -134,4 +138,11 @@
   color: red;
   margin-top: -5px;
   margin-bottom: 5px;
+}
+
+.productImage{
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  margin: 1em 0 1em 0;
 }

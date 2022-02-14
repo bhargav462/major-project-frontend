@@ -11,8 +11,7 @@ const useForm = (callback,validate,EnableButton,DisableButton) => {
         price: '',
         description: '',
         address: '',
-        pincode: '',
-        images: null
+        pincode: ''
     })
 
     const [disabled,setDisabled] = useState(false)
@@ -22,18 +21,13 @@ const useForm = (callback,validate,EnableButton,DisableButton) => {
     const [errors,setError] = useState({});
     const [isSubmitting,setIsSubmitting] = useState(false);
 
-    const handleChange = e => {
+    const handleChange = (e,data,propertyName) => {
       const {name} = e.target
-        if(name === "images")
-        {
-            console.log(e);
-            console.log(e.target.files)
-            console.log(e.target)
-            const value = e.target.files
-            setValues({
-              ...values,
-              [name] : value
-            })
+        if(data || propertyName){
+          setValues({
+            ...values,
+            [propertyName] : data ? data : ""
+          })
         }else{
           const {value} = e.target;
           setValues({
@@ -56,6 +50,34 @@ const useForm = (callback,validate,EnableButton,DisableButton) => {
     }
 
     useEffect(() => {
+
+      fetch(`${process.env.REACT_APP_API_URL}/profile`,{
+        method: 'GET',
+        headers:{
+          'content-type' : 'application/json',
+          token: JSON.parse(Cookies.get('token')).token
+        }
+      }).then(res => res.json())
+      .then(data => {
+
+        if(data.error){
+          swal(data.error)
+        }
+
+        console.log("profile Data",data)
+
+        const {user} = data
+        console.log("user",user)
+        
+        setValues({
+          address: user.address,
+          pincode: user.pincode
+        })
+
+      })
+    },[])
+
+    useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting){
 
           setDisabled(true)     
@@ -66,15 +88,15 @@ const useForm = (callback,validate,EnableButton,DisableButton) => {
 
           for(let prop in values){
               console.log("prop",prop)
-              if(prop === "images"){
-                for(let imageProp in values[prop])
-                {
-                  if(imageProp !== "length")
-                  formData.append(prop,values[prop][imageProp])
-                }
-              }else{
+              // if(prop === "images"){
+              //   for(let imageProp in values[prop])
+              //   {
+              //     if(imageProp !== "length")
+              //     formData.append(prop,values[prop][imageProp])
+              //   }
+              // }else{
                 formData.append(prop,values[prop])
-              }
+              // }
           }
 
           for (var pair of formData.entries()) {
@@ -102,13 +124,11 @@ const useForm = (callback,validate,EnableButton,DisableButton) => {
                 }
                 swal(`Your product id is ${response.id}`)
                 setValues({
+                  ...values,
                   cropName: '',
                   weight: '',
                   price: '',
-                  description: '',
-                  address: '',
-                  pincode: '',
-                  images: null 
+                  description: ''
                 })
                 setIsSubmitting(false)
                 console.log(response)

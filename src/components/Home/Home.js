@@ -15,8 +15,8 @@ class Home extends Component
 
     componentDidMount()
     {
-        fetch(`${process.env.REACT_APP_API_URL}/products/crops`,{
-            method: 'POST',
+        fetch(`${process.env.REACT_APP_API_URL}/products/crops?pageNumber=1&pageSize=4`,{
+            method: 'GET',
             headers: {
                 'content-type': 'application/json'
             }
@@ -26,7 +26,7 @@ class Home extends Component
             if(data.error){
                return swal(data.error)
             }
-            data =  data.slice(0,4)
+            data =  data.products.slice(0,4)
             this.setState({crops: data})
         }).catch(e => {
             console.log("error",e)
@@ -61,7 +61,7 @@ class Home extends Component
                             return (<div><article key={index}>
                                 <Link to={`/crop/${crop._id}`}>
                                     <div className={classes.ImageContainer}>
-                                        <img src={`data:image/png;base64, ${crop.images[0].buffer}`} alt="tshirt photo" />
+                                        <img src={`${process.env.REACT_APP_API_URL}${crop.images[0]}`} alt="tshirt photo" />
                                     </div>
                                 </Link>
                                 <div className={classes.content}>
