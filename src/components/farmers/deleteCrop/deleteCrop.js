@@ -186,7 +186,7 @@ const DeleteCrop = ({match:{params}}) => {
                                     {console.log("values",values)}
                                     {
                                     values.images && values.images.map((image,index) => {
-                                        return <img className={classes.images} key={index} src={`${process.env.REACT_APP_API_URL}${image}`} />
+                                        return <img className={classes.images} key={index} src={`${image}`} />
                                     })
                                     }
                                 </div>  

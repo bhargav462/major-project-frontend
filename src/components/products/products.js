@@ -99,7 +99,7 @@ class CardLayout extends Component{
                    return (<article key={index}>
                     <Link to={`/crop/${crop._id}`}>
                         <div className={classes.ImageContainer}>
-                            <img src={`${process.env.REACT_APP_API_URL}${crop.images[0]}`} alt="tshirt photo" />
+                            <img src={`${crop.images[0]}`} alt="tshirt photo" />
                         </div>
                     </Link>
                     <div className={classes.content}>
